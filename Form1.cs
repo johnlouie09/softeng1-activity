@@ -104,11 +104,11 @@ namespace Louie_s_Prelim_Exam
                 // Show a specific message indicating whether the record was inserted or updated
                 if (button1.Text == "Add Student")
                 {
-                    MessageBox.Show("Student record inserted successfully.");
+                    MessageBox.Show("Student record inserted successfully.", "Success!");
                 }
                 else if (button1.Text == "Update Student")
                 {
-                    MessageBox.Show("Student record updated successfully.");
+                    MessageBox.Show("Student record updated successfully.", "Success!");
                 }
             }
             catch (Exception ex)
