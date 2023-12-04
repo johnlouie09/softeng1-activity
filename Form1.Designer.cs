@@ -49,16 +49,16 @@
             // dataGridwithdb
             // 
             this.dataGridwithdb.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridwithdb.Location = new System.Drawing.Point(306, 12);
+            this.dataGridwithdb.Location = new System.Drawing.Point(365, 12);
             this.dataGridwithdb.Name = "dataGridwithdb";
-            this.dataGridwithdb.Size = new System.Drawing.Size(538, 240);
+            this.dataGridwithdb.Size = new System.Drawing.Size(538, 275);
             this.dataGridwithdb.TabIndex = 0;
             this.dataGridwithdb.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridwithdb_CellClick);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.button1.Location = new System.Drawing.Point(310, 400);
+            this.button1.Location = new System.Drawing.Point(369, 420);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(165, 42);
             this.button1.TabIndex = 1;
@@ -68,7 +68,7 @@
             // 
             // studentname
             // 
-            this.studentname.Location = new System.Drawing.Point(554, 311);
+            this.studentname.Location = new System.Drawing.Point(613, 331);
             this.studentname.Name = "studentname";
             this.studentname.Size = new System.Drawing.Size(145, 20);
             this.studentname.TabIndex = 2;
@@ -76,7 +76,7 @@
             // 
             // studentage
             // 
-            this.studentage.Location = new System.Drawing.Point(554, 337);
+            this.studentage.Location = new System.Drawing.Point(613, 357);
             this.studentage.Name = "studentage";
             this.studentage.Size = new System.Drawing.Size(145, 20);
             this.studentage.TabIndex = 3;
@@ -85,7 +85,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(554, 363);
+            this.checkBox1.Location = new System.Drawing.Point(613, 383);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 4;
@@ -94,7 +94,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(459, 315);
+            this.label1.Location = new System.Drawing.Point(518, 335);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 13);
             this.label1.TabIndex = 5;
@@ -103,7 +103,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(459, 340);
+            this.label2.Location = new System.Drawing.Point(518, 360);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 6;
@@ -120,7 +120,7 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.button2.Location = new System.Drawing.Point(491, 400);
+            this.button2.Location = new System.Drawing.Point(550, 420);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(165, 42);
             this.button2.TabIndex = 8;
@@ -131,7 +131,7 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.button3.Location = new System.Drawing.Point(662, 400);
+            this.button3.Location = new System.Drawing.Point(721, 420);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(165, 42);
             this.button3.TabIndex = 9;
@@ -142,16 +142,16 @@
             // qrcodebox
             // 
             this.qrcodebox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.qrcodebox.Location = new System.Drawing.Point(29, 12);
+            this.qrcodebox.Location = new System.Drawing.Point(28, 12);
             this.qrcodebox.Name = "qrcodebox";
-            this.qrcodebox.Size = new System.Drawing.Size(250, 240);
+            this.qrcodebox.Size = new System.Drawing.Size(275, 275);
             this.qrcodebox.TabIndex = 10;
             this.qrcodebox.TabStop = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(459, 364);
+            this.label4.Location = new System.Drawing.Point(518, 384);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 11;
@@ -160,7 +160,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(459, 289);
+            this.label5.Location = new System.Drawing.Point(518, 309);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(66, 13);
             this.label5.TabIndex = 13;
@@ -168,17 +168,18 @@
             // 
             // studentid
             // 
-            this.studentid.Location = new System.Drawing.Point(554, 285);
+            this.studentid.Location = new System.Drawing.Point(613, 305);
             this.studentid.Name = "studentid";
             this.studentid.Size = new System.Drawing.Size(145, 20);
             this.studentid.TabIndex = 12;
+            this.studentid.TextChanged += new System.EventHandler(this.studentid_TextChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(856, 490);
+            this.ClientSize = new System.Drawing.Size(915, 490);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.studentid);
             this.Controls.Add(this.label4);
@@ -196,6 +197,7 @@
             this.Name = "Form1";
             this.Text = "BSCS_Prelim_Exam";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridwithdb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qrcodebox)).EndInit();
             this.ResumeLayout(false);

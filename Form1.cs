@@ -41,38 +41,80 @@ namespace Louie_s_Prelim_Exam
         {
             try
             {
-                string query = "INSERT INTO studentstbl (studentid, Name, Age, isSingle) VALUES (@value1, @value2, @value3, @value4);";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
+                string query = "";
+                MySqlCommand cmd;
 
+                if (button1.Text == "Add Student")
+                {
+                    // Insert new student data
+                    query = "INSERT INTO studentstbl (studentid, Name, Age, isSingle) VALUES (@value1, @value2, @value3, @value4);";
+                    cmd = new MySqlCommand(query, connection);
+                }
+                else if (button1.Text == "Update Student")
+                {
+                    // Update existing student data
+                    query = "UPDATE studentstbl SET Name = @value2, Age = @value3, isSingle = @value4 WHERE studentid = @value1;";
+                    cmd = new MySqlCommand(query, connection);
+                }
+                else
+                {
+                    // Handle an unexpected state
+                    MessageBox.Show("Unexpected button state.");
+                    return;
+                }
+
+                // Set parameters
                 cmd.Parameters.AddWithValue("@value1", studentid.Text);
                 cmd.Parameters.AddWithValue("@value2", studentname.Text);
                 cmd.Parameters.AddWithValue("@value3", int.Parse(studentage.Text));
                 cmd.Parameters.AddWithValue("@value4", checkBox1.Checked);
 
+                // Execute query
                 cmd.ExecuteNonQuery();
 
-                MessageBox.Show("Data inserted succesfully. ");
-
+                // Refresh the DataGridView
                 dataGridwithdb.DataSource = null;
-                string query2 = "SELECT * FROM studentstbl ORDER by studentid DESC";
+                string query2 = "SELECT * FROM studentstbl ORDER BY studentid DESC";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query2, connection);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 dataGridwithdb.DataSource = dt;
 
+                // Clear input fields
                 studentid.Text = "";
                 studentname.Text = "";
                 studentage.Text = "";
                 checkBox1.Checked = false;
+
+                // Change the text of the button back to "Add Student"
+                button1.Text = "Add Student";
+
+                // Generate QR code based on the student data
+                Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
+                string combinedData = $"{studentid.Text}, {studentname.Text}, {studentage.Text}, {checkBox1.Checked}";
+
+                // Adjust the width and height as needed
+                int width = 6;
+                int height = 6;
+                var qrCodeImage = qrcode.Draw(combinedData, width, height);
+
+                // Display the generated QR code
+                qrcodebox.Image = qrCodeImage;
+
+                // Show a specific message indicating whether the record was inserted or updated
+                if (button1.Text == "Add Student")
+                {
+                    MessageBox.Show("Student record inserted successfully.");
+                }
+                else if (button1.Text == "Update Student")
+                {
+                    MessageBox.Show("Student record updated successfully.");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Data not inserted" + ex.Message);
+                MessageBox.Show("Data not inserted/updated: " + ex.Message);
             }
-
-            Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
-            string combinedData = $"{studentid.Text}, {studentname.Text}, {studentage.Text}, {checkBox1.Checked}";
-            qrcodebox.Image = qrcode.Draw(combinedData, 50);
         }
 
         private void dataGridwithdb_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -95,10 +137,17 @@ namespace Louie_s_Prelim_Exam
                 studentage.Text = Age;
                 checkBox1.Checked = Convert.ToBoolean(isSingle);
 
+                // Change the text of the button (assuming you have a button named button1)
+                button1.Text = "Update Student";
+
                 // Generate QR code based on the student data
                 string combinedData = $"{Studentid}, {Studentname}, {Age}, {isSingle}";
                 Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
-                var qrCodeImage = qrcode.Draw(combinedData, 50);
+
+                // Adjust the width and height as needed
+                int width = 6;
+                int height = 6;
+                var qrCodeImage = qrcode.Draw(combinedData, width, height);
 
                 // Display the generated QR code
                 qrcodebox.Image = qrCodeImage;
@@ -107,10 +156,23 @@ namespace Louie_s_Prelim_Exam
             }
         }
 
+        private void studentid_TextChanged(object sender, EventArgs e)
+        {
+            {
+                if (!string.IsNullOrEmpty(studentname.Text) && !string.IsNullOrEmpty(studentage.Text) && int.TryParse(studentage.Text, out _))
+                {
+                    button1.Enabled = true;
+
+                }
+                else
+                    button1.Enabled = false;
+            }
+        }
+
         private void studentname_TextChanged(object sender, EventArgs e)
         {
             {
-                if ((!string.IsNullOrEmpty(studentname.Text)) && !(string.IsNullOrEmpty(studentage.Text)))
+                if (!string.IsNullOrEmpty(studentname.Text) && !string.IsNullOrEmpty(studentage.Text) && int.TryParse(studentage.Text, out _))
                 {
                     button1.Enabled = true;
 
@@ -124,7 +186,7 @@ namespace Louie_s_Prelim_Exam
         private void studentage_TextChanged(object sender, EventArgs e)
         {
             {
-                if ((!string.IsNullOrEmpty(studentname.Text)) && !(string.IsNullOrEmpty(studentage.Text)))
+                if (!string.IsNullOrEmpty(studentname.Text) && !string.IsNullOrEmpty(studentage.Text) && int.TryParse(studentage.Text, out _))
                 {
                     button1.Enabled = true;
 
@@ -140,6 +202,9 @@ namespace Louie_s_Prelim_Exam
             studentname.Text = "";
             studentage.Text = "";
             checkBox1.Checked = false;
+
+            // Change the text of the button
+            button1.Text = "Add Student";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -154,7 +219,7 @@ namespace Louie_s_Prelim_Exam
                 int primaryKeyValue = Convert.ToInt32(selectedRow.Cells[0].Value);
 
                 // Ask the user for confirmation
-                DialogResult result = MessageBox.Show("Are you sure you want to delete this row?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Alert!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
@@ -165,11 +230,11 @@ namespace Louie_s_Prelim_Exam
                         dataGridwithdb.Rows.Remove(selectedRow);
 
                         // Display success message
-                        MessageBox.Show("Row deleted successfully.", "Delete Row");
+                        MessageBox.Show("Record deleted successfully.", "Delete Record");
                     }
                     else
                     {
-                        MessageBox.Show("Failed to delete row.", "Delete Row", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Failed to delete record.", "Delete Record", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 // If the user clicks No, do nothing
@@ -177,13 +242,13 @@ namespace Louie_s_Prelim_Exam
             else
             {
                 MessageBox.Show("Please select a row to delete.", "Delete Row");
-
-                // The input fields will become empty after deleting
-                studentid.Text = "";
-                studentname.Text = "";
-                studentage.Text = "";
-                checkBox1.Checked = false;
             }
+
+            // The input fields will become empty after deleting
+            studentid.Text = "";
+            studentname.Text = "";
+            studentage.Text = "";
+            checkBox1.Checked = false;
         }
 
         private bool DeleteRowFromDatabase(int primaryKeyValue)
@@ -205,6 +270,11 @@ namespace Louie_s_Prelim_Exam
                 MessageBox.Show($"Error deleting row from database: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false; // Deletion failed
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            button1.Enabled = false;
         }
     }
 }
