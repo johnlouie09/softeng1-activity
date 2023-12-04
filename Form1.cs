@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Louie_s_Prelim_Exam
 {
@@ -40,12 +41,13 @@ namespace Louie_s_Prelim_Exam
         {
             try
             {
-                string query = "INSERT INTO studentstbl (Name, Age, isSingle) VALUES (@value1, @value2, @value3);";
+                string query = "INSERT INTO studentstbl (studentid, Name, Age, isSingle) VALUES (@value1, @value2, @value3, @value4);";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
-                cmd.Parameters.AddWithValue("@value1", studentname.Text);
-                cmd.Parameters.AddWithValue("@value2", int.Parse(studentage.Text));
-                cmd.Parameters.AddWithValue("@value3", checkBox1.Checked);
+                cmd.Parameters.AddWithValue("@value1", studentid.Text);
+                cmd.Parameters.AddWithValue("@value2", studentname.Text);
+                cmd.Parameters.AddWithValue("@value3", int.Parse(studentage.Text));
+                cmd.Parameters.AddWithValue("@value4", checkBox1.Checked);
 
                 cmd.ExecuteNonQuery();
 
@@ -58,6 +60,7 @@ namespace Louie_s_Prelim_Exam
                 adapter.Fill(dt);
                 dataGridwithdb.DataSource = dt;
 
+                studentid.Text = "";
                 studentname.Text = "";
                 studentage.Text = "";
                 checkBox1.Checked = false;
@@ -66,6 +69,10 @@ namespace Louie_s_Prelim_Exam
             {
                 MessageBox.Show("Data not inserted" + ex.Message);
             }
+
+            Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
+            string combinedData = $"{studentid.Text}, {studentname.Text}, {studentage.Text}, {checkBox1.Checked}";
+            qrcodebox.Image = qrcode.Draw(combinedData, 50);
         }
 
         private void dataGridwithdb_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -77,14 +84,24 @@ namespace Louie_s_Prelim_Exam
                 DataGridViewRow clickedRow = dataGridwithdb.Rows[e.RowIndex];
                 // Assuming you want to access the data in the first cell of the clicked row
                 string rowDataStudentID = clickedRow.Cells[0].Value.ToString();
+                string Studentid = clickedRow.Cells[0].Value.ToString();
                 string Studentname = clickedRow.Cells[1].Value.ToString();
                 string Age = clickedRow.Cells[2].Value.ToString();
-                var isSingle = clickedRow.Cells[4].Value;
+                var isSingle = clickedRow.Cells[4].Value.ToString();
 
-                checkBox1.Checked = Convert.ToBoolean(isSingle);
-
+                // Populate UI elements with the data
+                studentid.Text = Studentid;
                 studentname.Text = Studentname;
                 studentage.Text = Age;
+                checkBox1.Checked = Convert.ToBoolean(isSingle);
+
+                // Generate QR code based on the student data
+                string combinedData = $"{Studentid}, {Studentname}, {Age}, {isSingle}";
+                Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
+                var qrCodeImage = qrcode.Draw(combinedData, 50);
+
+                // Display the generated QR code
+                qrcodebox.Image = qrCodeImage;
 
                 // Now you can use rowData as needed
             }
@@ -119,6 +136,7 @@ namespace Louie_s_Prelim_Exam
 
         private void button3_Click(object sender, EventArgs e)
         {
+            studentid.Text = "";
             studentname.Text = "";
             studentage.Text = "";
             checkBox1.Checked = false;
@@ -161,6 +179,7 @@ namespace Louie_s_Prelim_Exam
                 MessageBox.Show("Please select a row to delete.", "Delete Row");
 
                 // The input fields will become empty after deleting
+                studentid.Text = "";
                 studentname.Text = "";
                 studentage.Text = "";
                 checkBox1.Checked = false;
