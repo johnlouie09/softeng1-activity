@@ -42,6 +42,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.studentid = new System.Windows.Forms.TextBox();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridwithdb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qrcodebox)).BeginInit();
             this.SuspendLayout();
@@ -174,12 +175,23 @@
             this.studentid.TabIndex = 12;
             this.studentid.TextChanged += new System.EventHandler(this.studentid_TextChanged);
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(239, 420);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(124, 42);
+            this.button4.TabIndex = 14;
+            this.button4.Text = "Attendance";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(915, 490);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.studentid);
             this.Controls.Add(this.label4);
@@ -221,6 +233,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox studentid;
+        private System.Windows.Forms.Button button4;
     }
 }
 

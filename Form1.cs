@@ -47,13 +47,13 @@ namespace Louie_s_Prelim_Exam
                 if (button1.Text == "Add Student")
                 {
                     // Insert new student data
-                    query = "INSERT INTO studentstbl (studentid, Name, Age, isSingle) VALUES (@value1, @value2, @value3, @value4);";
+                    query = "INSERT INTO studentstbl (Studentsid, Firstname, Age, isSingle) VALUES (@value1, @value2, @value3, @value4);";
                     cmd = new MySqlCommand(query, connection);
                 }
                 else if (button1.Text == "Update Student")
                 {
                     // Update existing student data
-                    query = "UPDATE studentstbl SET Name = @value2, Age = @value3, isSingle = @value4 WHERE studentid = @value1;";
+                    query = "UPDATE studentstbl SET Firstname = @value2, Age = @value3, isSingle = @value4 WHERE Studentsid = @value1;";
                     cmd = new MySqlCommand(query, connection);
                 }
                 else
@@ -74,7 +74,7 @@ namespace Louie_s_Prelim_Exam
 
                 // Refresh the DataGridView
                 dataGridwithdb.DataSource = null;
-                string query2 = "SELECT * FROM studentstbl ORDER BY studentid DESC";
+                string query2 = "SELECT * FROM studentstbl ORDER BY Studentsid DESC";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query2, connection);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -256,7 +256,7 @@ namespace Louie_s_Prelim_Exam
             try
             {
                 // Use your MySQL database connection and SQL command to delete the row
-                string query = "DELETE FROM studentstbl WHERE studentid = @PrimaryKeyValue";
+                string query = "DELETE FROM studentstbl WHERE Studentsid = @PrimaryKeyValue";
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@PrimaryKeyValue", primaryKeyValue);
@@ -275,6 +275,13 @@ namespace Louie_s_Prelim_Exam
         private void Form1_Load(object sender, EventArgs e)
         {
             button1.Enabled = false;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Attendance2 attendance = new Attendance2();
+            attendance.Show();
+            this.Hide();
         }
     }
 }
