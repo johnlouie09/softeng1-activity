@@ -25,7 +25,7 @@ namespace Louie_s_Prelim_Exam
             try
             {
                 connection.Open();
-                string query = "SELECT * FROM studentstbl ORDER by studentid DESC";
+                string query = "SELECT * FROM studentstbl ORDER by Studentsid DESC";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
