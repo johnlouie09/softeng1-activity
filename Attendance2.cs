@@ -1,5 +1,6 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,10 +18,39 @@ namespace Louie_s_Prelim_Exam
     {
         FilterInfoCollection filterInfoCollection;
         VideoCaptureDevice videoCaptureDevice;
+        BarcodeReader barcodeReader;
+        MySqlConnection dbConnection;
+
+        private DataTable attendanceTable;
+
+        private bool isUserIn = false;
 
         public Attendance2()
         {
             InitializeComponent();
+            InitializeDatabase();
+            InitializeDataGridView();
+        }
+
+        private void InitializeDatabase()
+        {
+            // Set your MySQL connection string here
+            string connectionString = "Server=localhost;Database=bscs3db;User=root;Password='';";
+            dbConnection = new MySqlConnection(connectionString);
+        }
+
+        private void InitializeDataGridView()
+        {
+            attendanceTable = new DataTable();
+
+            // Define columns for the DataTable
+            attendanceTable.Columns.Add("User Name", typeof(string));
+            attendanceTable.Columns.Add("QR Code", typeof(string));
+            attendanceTable.Columns.Add("Status", typeof(string));
+            attendanceTable.Columns.Add("Date/Time", typeof(DateTime));
+
+            // Set DataGridView's DataSource to the DataTable
+            attendanceDataGrid.DataSource = attendanceTable;
         }
 
         private void button1_Click(object sender, EventArgs e)
