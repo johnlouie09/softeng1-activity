@@ -63,5 +63,11 @@ namespace Louie_s_Prelim_Exam
         {
             timer1.Start();
         }
+
+        private void Attendance2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (videoCaptureDevice.IsRunning == true)
+                videoCaptureDevice.Stop();
+        }
     }
 }

@@ -128,6 +128,7 @@
             this.Name = "Attendance2";
             this.Text = "Attendance";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Attendance2_FormClosing);
             this.Load += new System.EventHandler(this.Attendance2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.scannerBox)).EndInit();
             this.ResumeLayout(false);
