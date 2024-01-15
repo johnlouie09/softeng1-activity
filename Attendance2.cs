@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZXing;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Louie_s_Prelim_Exam
 {
@@ -156,6 +157,11 @@ namespace Louie_s_Prelim_Exam
             {
                 dbConnection.Close();
             }
+        }
+
+        private void UpdateStatus(string status)
+        {
+            textBox1.Text = $"Status: {status}";
         }
 
         private void btnDecode_Click(object sender, EventArgs e)
