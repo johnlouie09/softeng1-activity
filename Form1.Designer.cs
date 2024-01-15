@@ -177,12 +177,13 @@
             // 
             // button4
             // 
+            this.button4.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.button4.Location = new System.Drawing.Point(239, 420);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(124, 42);
             this.button4.TabIndex = 14;
             this.button4.Text = "Attendance";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Form1
