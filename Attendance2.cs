@@ -67,6 +67,9 @@ namespace Louie_s_Prelim_Exam
                 comboCam.Items.Add(Device.Name);
             comboCam.SelectedIndex = 0;
             videoCaptureDevice = new VideoCaptureDevice();
+
+            barcodeReader = new BarcodeReader();
+            barcodeReader.Options.PossibleFormats = new BarcodeFormat[] { BarcodeFormat.QR_CODE };
         }
 
         private void btnStart_Click(object sender, EventArgs e)
