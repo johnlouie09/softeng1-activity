@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZXing;
 
 namespace Louie_s_Prelim_Exam
 {
@@ -48,6 +49,19 @@ namespace Louie_s_Prelim_Exam
         private void FinalFrame_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
             scannerBox.Image = (Bitmap)eventArgs.Frame.Clone();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            BarcodeReader Reader = new BarcodeReader();
+            Result result = Reader.Decode((Bitmap)scannerBox.Image);
+            if (result != null)
+                textBox1.Text = result.ToString();
+        }
+
+        private void btnDecode_Click(object sender, EventArgs e)
+        {
+            timer1.Start();
         }
     }
 }

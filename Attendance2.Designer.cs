@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.comboCam = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnDecode = new System.Windows.Forms.Button();
             this.scannerBox = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.scannerBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,15 +87,16 @@
             this.btnStart.UseVisualStyleBackColor = false;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // button3
+            // btnDecode
             // 
-            this.button3.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.button3.Location = new System.Drawing.Point(579, 294);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(103, 51);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Decode";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnDecode.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btnDecode.Location = new System.Drawing.Point(579, 294);
+            this.btnDecode.Name = "btnDecode";
+            this.btnDecode.Size = new System.Drawing.Size(103, 51);
+            this.btnDecode.TabIndex = 5;
+            this.btnDecode.Text = "Decode";
+            this.btnDecode.UseVisualStyleBackColor = false;
+            this.btnDecode.Click += new System.EventHandler(this.btnDecode_Click);
             // 
             // scannerBox
             // 
@@ -104,6 +107,11 @@
             this.scannerBox.TabIndex = 6;
             this.scannerBox.TabStop = false;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Attendance2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -111,14 +119,14 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.scannerBox);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnDecode);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.comboCam);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Name = "Attendance2";
-            this.Text = "Attendance2";
+            this.Text = "Attendance";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Attendance2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.scannerBox)).EndInit();
@@ -134,7 +142,8 @@
         private System.Windows.Forms.ComboBox comboCam;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnDecode;
         private System.Windows.Forms.PictureBox scannerBox;
+        private System.Windows.Forms.Timer timer1;
     }
 }
