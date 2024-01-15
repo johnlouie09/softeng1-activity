@@ -86,10 +86,12 @@ namespace Louie_s_Prelim_Exam
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            BarcodeReader Reader = new BarcodeReader();
-            Result result = Reader.Decode((Bitmap)scannerBox.Image);
+            Result result = barcodeReader.Decode((Bitmap)scannerBox.Image);
             if (result != null)
-                textBox1.Text = result.ToString();
+            {
+                string decodedText = result.ToString();
+                ProcessQRCode(decodedText);
+            }
         }
 
         private void btnDecode_Click(object sender, EventArgs e)
