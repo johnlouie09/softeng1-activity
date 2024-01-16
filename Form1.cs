@@ -89,6 +89,15 @@ namespace Louie_s_Prelim_Exam
                 cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@studentId", lastStudentId);
 
+                // Convert the image to byte array and store it in the database
+                using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+                {
+                    qrCodeImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    cmd.Parameters.AddWithValue("@qrCodeImage", ms.ToArray());
+                }
+
+                cmd.ExecuteNonQuery();
+
                 // Display the generated QR code
                 qrcodebox.Image = qrCodeImage;
 
