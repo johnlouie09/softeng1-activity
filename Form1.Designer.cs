@@ -209,7 +209,6 @@
             this.Controls.Add(this.dataGridwithdb);
             this.Name = "Form1";
             this.Text = "BSCS_Prelim_Exam";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridwithdb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qrcodebox)).EndInit();
