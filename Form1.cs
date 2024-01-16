@@ -72,6 +72,9 @@ namespace Louie_s_Prelim_Exam
                 // Execute query
                 cmd.ExecuteNonQuery();
 
+                // Get the last inserted/updated student ID
+                int lastStudentId = Convert.ToInt32(cmd.LastInsertedId);
+
                 // Refresh the DataGridView
                 dataGridwithdb.DataSource = null;
                 string query2 = "SELECT * FROM studentstbl ORDER BY StudentID DESC";
