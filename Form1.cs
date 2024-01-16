@@ -75,6 +75,23 @@ namespace Louie_s_Prelim_Exam
                 // Get the last inserted/updated student ID
                 int lastStudentId = Convert.ToInt32(cmd.LastInsertedId);
 
+                // Generate QR code based on the student data
+                Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
+                string combinedData = $"{studentid.Text}, {studentname.Text}, {studentage.Text}, {checkBox1.Checked}";
+
+                // Adjust the width and height as needed
+                int width = 6;
+                int height = 6;
+                var qrCodeImage = qrcode.Draw(combinedData, width, height);
+
+                // Insert QR code into qrcodetbl table
+                query = "INSERT INTO qrcodetbl (StudentId, QrCodeImage) VALUES (@studentId, @qrCodeImage);";
+                cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@studentId", lastStudentId);
+
+                // Display the generated QR code
+                qrcodebox.Image = qrCodeImage;
+
                 // Refresh the DataGridView
                 dataGridwithdb.DataSource = null;
                 string query2 = "SELECT * FROM studentstbl ORDER BY StudentID DESC";
@@ -91,18 +108,6 @@ namespace Louie_s_Prelim_Exam
 
                 // Change the text of the button back to "Add Student"
                 button1.Text = "Add Student";
-
-                // Generate QR code based on the student data
-                Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
-                string combinedData = $"{studentid.Text}, {studentname.Text}, {studentage.Text}, {checkBox1.Checked}";
-
-                // Adjust the width and height as needed
-                int width = 6;
-                int height = 6;
-                var qrCodeImage = qrcode.Draw(combinedData, width, height);
-
-                // Display the generated QR code
-                qrcodebox.Image = qrCodeImage;
 
                 // Show a specific message indicating whether the record was inserted or updated
                 if (button1.Text == "Add Student")
