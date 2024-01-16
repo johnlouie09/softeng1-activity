@@ -25,7 +25,7 @@ namespace Louie_s_Prelim_Exam
             try
             {
                 connection.Open();
-                string query = "SELECT * FROM studentstbl ORDER by Studentsid DESC";
+                string query = "SELECT * FROM studentstbl ORDER by StudentID DESC";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -47,13 +47,13 @@ namespace Louie_s_Prelim_Exam
                 if (button1.Text == "Add Student")
                 {
                     // Insert new student data
-                    query = "INSERT INTO studentstbl (Studentsid, Firstname, Age, isSingle) VALUES (@value1, @value2, @value3, @value4);";
+                    query = "INSERT INTO studentstbl (StudentID, Firstname, Age, isSingle) VALUES (@value1, @value2, @value3, @value4);";
                     cmd = new MySqlCommand(query, connection);
                 }
                 else if (button1.Text == "Update Student")
                 {
                     // Update existing student data
-                    query = "UPDATE studentstbl SET Firstname = @value2, Age = @value3, isSingle = @value4 WHERE Studentsid = @value1;";
+                    query = "UPDATE studentstbl SET Firstname = @value2, Age = @value3, isSingle = @value4 WHERE StudentID = @value1;";
                     cmd = new MySqlCommand(query, connection);
                 }
                 else
@@ -74,7 +74,7 @@ namespace Louie_s_Prelim_Exam
 
                 // Refresh the DataGridView
                 dataGridwithdb.DataSource = null;
-                string query2 = "SELECT * FROM studentstbl ORDER BY Studentsid DESC";
+                string query2 = "SELECT * FROM studentstbl ORDER BY StudentID DESC";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query2, connection);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -256,7 +256,7 @@ namespace Louie_s_Prelim_Exam
             try
             {
                 // Use your MySQL database connection and SQL command to delete the row
-                string query = "DELETE FROM studentstbl WHERE Studentsid = @PrimaryKeyValue";
+                string query = "DELETE FROM studentstbl WHERE StudentID = @PrimaryKeyValue";
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@PrimaryKeyValue", primaryKeyValue);

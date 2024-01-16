@@ -143,6 +143,7 @@
             // qrcodebox
             // 
             this.qrcodebox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.qrcodebox.Cursor = System.Windows.Forms.Cursors.Default;
             this.qrcodebox.Location = new System.Drawing.Point(28, 12);
             this.qrcodebox.Name = "qrcodebox";
             this.qrcodebox.Size = new System.Drawing.Size(275, 275);
