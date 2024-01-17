@@ -215,10 +215,12 @@ namespace Louie_s_Prelim_Exam
 
         private void button3_Click(object sender, EventArgs e)
         {
+            // Set the inputted values to null
             studentid.Text = "";
             studentname.Text = "";
             studentage.Text = "";
             checkBox1.Checked = false;
+            qrcodebox.Hide();
 
             // Change the text of the button
             button1.Text = "Add Student";
