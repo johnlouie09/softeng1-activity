@@ -154,7 +154,7 @@ namespace Louie_s_Prelim_Exam
                 studentage.Text = Age;
                 checkBox1.Checked = Convert.ToBoolean(isSingle);
 
-                // Change the text of the button (assuming you have a button named button1)
+                // Change the text of the button
                 button1.Text = "Update Student";
 
                 // Generate QR code based on the student data
