@@ -95,9 +95,9 @@
             // scannerBox
             // 
             this.scannerBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.scannerBox.Location = new System.Drawing.Point(71, 54);
+            this.scannerBox.Location = new System.Drawing.Point(51, 46);
             this.scannerBox.Name = "scannerBox";
-            this.scannerBox.Size = new System.Drawing.Size(296, 223);
+            this.scannerBox.Size = new System.Drawing.Size(336, 258);
             this.scannerBox.TabIndex = 6;
             this.scannerBox.TabStop = false;
             // 

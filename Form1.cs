@@ -153,6 +153,7 @@ namespace Louie_s_Prelim_Exam
                 studentname.Text = Studentname;
                 studentage.Text = Age;
                 checkBox1.Checked = Convert.ToBoolean(isSingle);
+                qrcodebox.Show();
 
                 // Change the text of the button
                 button1.Text = "Update Student";

@@ -94,6 +94,7 @@ namespace Louie_s_Prelim_Exam
             if (result != null)
             {
                 string decodedText = result.ToString();
+                Console.WriteLine($"Decoded Text: {decodedText}");
                 ProcessQRCode(decodedText);
             }
         }
@@ -126,7 +127,7 @@ namespace Louie_s_Prelim_Exam
                         {
                             // Add a new row to the DataTable
                             attendanceTable.Rows.Add(studentName, decodedText, status, dateTime);
-                            UpdateStatus("IN    ");
+                            UpdateStatus("IN");
                             isUserIn = true;
                         }
                         else
@@ -143,13 +144,15 @@ namespace Louie_s_Prelim_Exam
                     }
                     else
                     {
+                        Console.WriteLine($"User not found in the database. Decoded Text: {decodedText}");
                         MessageBox.Show("User not found in the database.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error processing QR code: " + ex.Message);
+                Console.WriteLine($"Error processing QR code: {ex.Message}");
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
