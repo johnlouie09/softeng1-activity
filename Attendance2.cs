@@ -31,6 +31,8 @@ namespace Louie_s_Prelim_Exam
             InitializeComponent();
             InitializeDatabase();
             InitializeDataGridView();
+            isUserIn = false; // Set the intial state
+
         }
 
         private void InitializeDatabase()
@@ -101,9 +103,9 @@ namespace Louie_s_Prelim_Exam
             {
                 dbConnection.Open();
 
-                string query = "SELECT * FROM qrcodetbl WHERE QrCodeId = @QrCodeId";
+                string query = "SELECT * FROM attendance WHERE qr_code = @qr_code";
                 MySqlCommand cmd = new MySqlCommand(query, dbConnection);
-                cmd.Parameters.AddWithValue("@QrCodeId", decodedText);
+                cmd.Parameters.AddWithValue("@qr_code", decodedText);
 
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
