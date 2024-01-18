@@ -85,17 +85,12 @@ namespace Louie_s_Prelim_Exam
                 var qrCodeImage = qrcode.Draw(combinedData, width, height);
 
                 // Insert QR code into qrcodetbl table
-                query = "INSERT INTO qrcodetbl (StudentId, QrCodeImage) VALUES (@studentId, @qrCodeImage);";
+                query = "INSERT INTO qrcodetbl (StudentId, QrCodeText) VALUES (@studentId, @qrCodeText);";
                 cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@studentId", lastStudentId);
+                cmd.Parameters.AddWithValue("@qrCodeText", combinedData); // combinedData contains the textual information
 
-                // Convert the image to byte array and store it in the database
-                using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
-                {
-                    qrCodeImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    cmd.Parameters.AddWithValue("@qrCodeImage", ms.ToArray());
-                }
-
+                // Execute the query
                 cmd.ExecuteNonQuery();
 
                 // Display the generated QR code
@@ -180,7 +175,6 @@ namespace Louie_s_Prelim_Exam
                 if (!string.IsNullOrEmpty(studentname.Text) && !string.IsNullOrEmpty(studentage.Text) && int.TryParse(studentage.Text, out _))
                 {
                     button1.Enabled = true;
-
                 }
                 else
                     button1.Enabled = false;
@@ -193,12 +187,10 @@ namespace Louie_s_Prelim_Exam
                 if (!string.IsNullOrEmpty(studentname.Text) && !string.IsNullOrEmpty(studentage.Text) && int.TryParse(studentage.Text, out _))
                 {
                     button1.Enabled = true;
-
                 }
                 else
                     button1.Enabled = false;
             }
-
         }
 
         private void studentage_TextChanged(object sender, EventArgs e)
@@ -207,7 +199,6 @@ namespace Louie_s_Prelim_Exam
                 if (!string.IsNullOrEmpty(studentname.Text) && !string.IsNullOrEmpty(studentage.Text) && int.TryParse(studentage.Text, out _))
                 {
                     button1.Enabled = true;
-
                 }
                 else
                     button1.Enabled = false;
@@ -269,6 +260,7 @@ namespace Louie_s_Prelim_Exam
             studentname.Text = "";
             studentage.Text = "";
             checkBox1.Checked = false;
+            qrcodebox.Hide();
         }
 
         private bool DeleteRowFromDatabase(int primaryKeyValue)
