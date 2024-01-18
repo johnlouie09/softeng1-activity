@@ -103,7 +103,7 @@ namespace Louie_s_Prelim_Exam
 
                 string query = "SELECT * FROM qrcodetbl WHERE QrCodeId = @QrCodeId";
                 MySqlCommand cmd = new MySqlCommand(query, dbConnection);
-                cmd.Parameters.AddWithValue("@qr_code", decodedText);
+                cmd.Parameters.AddWithValue("@QrCodeId", decodedText);
 
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
