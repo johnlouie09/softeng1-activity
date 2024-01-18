@@ -126,7 +126,7 @@ namespace Louie_s_Prelim_Exam
                         {
                             // Add a new row to the DataTable
                             attendanceTable.Rows.Add(studentName, decodedText, status, dateTime);
-                            UpdateStatus(status);
+                            UpdateStatus("IN    ");
                             isUserIn = true;
                         }
                         else
