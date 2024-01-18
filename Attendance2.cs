@@ -48,7 +48,6 @@ namespace Louie_s_Prelim_Exam
 
             // Define columns for the DataTable
             attendanceTable.Columns.Add("User Name", typeof(string));
-            attendanceTable.Columns.Add("QR Code", typeof(string));
             attendanceTable.Columns.Add("Status", typeof(string));
             attendanceTable.Columns.Add("Date/Time", typeof(DateTime));
 
@@ -73,6 +72,8 @@ namespace Louie_s_Prelim_Exam
 
             barcodeReader = new BarcodeReader();
             barcodeReader.Options.PossibleFormats = new BarcodeFormat[] { BarcodeFormat.QR_CODE };
+
+            UpdateStatus(isUserIn ? "IN" : "OUT");
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -103,7 +104,13 @@ namespace Louie_s_Prelim_Exam
             {
                 dbConnection.Open();
 
-                string query = "SELECT * FROM attendance WHERE qr_code = @qr_code";
+                // Modified query to retrieve information from related tables
+                string query = "SELECT s.Firstname, a.status, a.date_time " +
+                                "FROM attendance a " +
+                                "JOIN qrcodetbl q ON a.qr_code = q.QrCodeId " +
+                                "JOIN studentstbl s ON q.StudentId = s.StudentID " +
+                                "WHERE a.qr_code = @qr_code";
+
                 MySqlCommand cmd = new MySqlCommand(query, dbConnection);
                 cmd.Parameters.AddWithValue("@qr_code", decodedText);
 
@@ -111,30 +118,19 @@ namespace Louie_s_Prelim_Exam
                 {
                     if (reader.Read())
                     {
-                        string userName = reader["user_name"].ToString();
-                        DateTime dateTime = DateTime.Now;
+                        string studentName = reader["Firstname"].ToString();
+                        string status = reader["status"].ToString();
+                        DateTime dateTime = Convert.ToDateTime(reader["date_time"]);
 
                         if (!isUserIn)
                         {
-                            string insertQuery = "INSERT INTO attendance (user_name, qr_code, status, date_time) VALUES (@user_name, @qr_code, 'IN', @date_time)";
-                            MySqlCommand insertCmd = new MySqlCommand(insertQuery, dbConnection);
-                            insertCmd.Parameters.AddWithValue("@user_name", userName);
-                            insertCmd.Parameters.AddWithValue("@qr_code", decodedText);
-                            insertCmd.Parameters.AddWithValue("@date_time", dateTime);
-                            insertCmd.ExecuteNonQuery();
-
                             // Add a new row to the DataTable
-                            attendanceTable.Rows.Add(userName, decodedText, "IN", dateTime);
-                            UpdateStatus("IN");
+                            attendanceTable.Rows.Add(studentName, decodedText, status, dateTime);
+                            UpdateStatus(status);
                             isUserIn = true;
                         }
                         else
                         {
-                            string updateQuery = "UPDATE attendance SET status = 'OUT' WHERE qr_code = @qr_code AND status = 'IN'";
-                            MySqlCommand updateCmd = new MySqlCommand(updateQuery, dbConnection);
-                            updateCmd.Parameters.AddWithValue("@qr_code", decodedText);
-                            updateCmd.ExecuteNonQuery();
-
                             // Update the status in the DataTable
                             DataRow[] rows = attendanceTable.Select($"[QR Code] = '{decodedText}' AND [Status] = 'IN'");
                             if (rows.Length > 0)
