@@ -31,7 +31,7 @@ namespace Louie_s_Prelim_Exam
             InitializeComponent();
             InitializeDatabase();
             InitializeDataGridView();
-            isUserIn = false; // Set the intial state
+            isUserIn = false; // Set the intial 
 
         }
 
@@ -87,6 +87,9 @@ namespace Louie_s_Prelim_Exam
 
             // start the decoding process
             timer1.Start();
+
+            label2.Text = "QR Scanner running...";
+            label2.Visible = true;
         }
 
         private void FinalFrame_NewFrame(object sender, NewFrameEventArgs eventArgs)

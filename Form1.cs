@@ -25,7 +25,7 @@ namespace Louie_s_Prelim_Exam
             try
             {
                 connection.Open();
-                string query = "SELECT * FROM studentstbl ORDER by StudentID DESC";
+                string query = "SELECT * FROM studentstbl";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -72,9 +72,6 @@ namespace Louie_s_Prelim_Exam
                 // Execute query
                 cmd.ExecuteNonQuery();
 
-                // Get the last inserted/updated student ID
-                int lastStudentId = Convert.ToInt32(cmd.LastInsertedId);
-
                 // Generate QR code based on the student data
                 Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
                 string combinedData = $"{studentid.Text}, {studentname.Text}, {studentage.Text}, {checkBox1.Checked}";
@@ -84,21 +81,12 @@ namespace Louie_s_Prelim_Exam
                 int height = 6;
                 var qrCodeImage = qrcode.Draw(combinedData, width, height);
 
-                // Insert QR code into qrcodetbl table
-                query = "INSERT INTO qrcodetbl (StudentId, QrCodeText) VALUES (@studentId, @qrCodeText);";
-                cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@studentId", lastStudentId);
-                cmd.Parameters.AddWithValue("@qrCodeText", combinedData); // combinedData contains the textual information
-
-                // Execute the query
-                cmd.ExecuteNonQuery();
-
                 // Display the generated QR code
                 qrcodebox.Image = qrCodeImage;
 
                 // Refresh the DataGridView
                 dataGridwithdb.DataSource = null;
-                string query2 = "SELECT * FROM studentstbl ORDER BY StudentID DESC";
+                string query2 = "SELECT * FROM studentstbl";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query2, connection);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -260,7 +248,6 @@ namespace Louie_s_Prelim_Exam
             studentname.Text = "";
             studentage.Text = "";
             checkBox1.Checked = false;
-            qrcodebox.Hide();
         }
 
         private bool DeleteRowFromDatabase(int primaryKeyValue)
