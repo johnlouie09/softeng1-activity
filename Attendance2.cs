@@ -60,6 +60,10 @@ namespace Louie_s_Prelim_Exam
             Form1 form1 = new Form1();
             form1.Show();
             this.Hide();
+
+            // Close the camera
+            if (videoCaptureDevice.IsRunning == true)
+                videoCaptureDevice.Stop();
         }
 
         private void Attendance2_Load(object sender, EventArgs e)
@@ -72,15 +76,17 @@ namespace Louie_s_Prelim_Exam
 
             barcodeReader = new BarcodeReader();
             barcodeReader.Options.PossibleFormats = new BarcodeFormat[] { BarcodeFormat.QR_CODE };
-
-            UpdateStatus(isUserIn ? "IN" : "OUT");
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            // turn on the camera
             videoCaptureDevice = new VideoCaptureDevice(filterInfoCollection[comboCam.SelectedIndex].MonikerString);
             videoCaptureDevice.NewFrame += FinalFrame_NewFrame;
             videoCaptureDevice.Start();
+
+            // start the decoding process
+            timer1.Start();
         }
 
         private void FinalFrame_NewFrame(object sender, NewFrameEventArgs eventArgs)
@@ -127,7 +133,6 @@ namespace Louie_s_Prelim_Exam
                         {
                             // Add a new row to the DataTable
                             attendanceTable.Rows.Add(studentName, decodedText, status, dateTime);
-                            UpdateStatus("IN");
                             isUserIn = true;
                         }
                         else
@@ -137,7 +142,6 @@ namespace Louie_s_Prelim_Exam
                             if (rows.Length > 0)
                             {
                                 rows[0]["Status"] = "OUT";
-                                UpdateStatus("OUT");
                             }
                             isUserIn = false;
                         }
@@ -160,20 +164,15 @@ namespace Louie_s_Prelim_Exam
             }
         }
 
-        private void UpdateStatus(string status)
-        {
-            textBox1.Text = $"Status: {status}";
-        }
-
-        private void btnDecode_Click(object sender, EventArgs e)
-        {
-            timer1.Start();
-        }
-
         private void Attendance2_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (videoCaptureDevice.IsRunning == true)
                 videoCaptureDevice.Stop();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            label2.Visible = !label2.Visible; 
         }
     }
 }

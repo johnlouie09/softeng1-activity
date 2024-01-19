@@ -33,11 +33,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboCam = new System.Windows.Forms.ComboBox();
             this.btnStart = new System.Windows.Forms.Button();
-            this.btnDecode = new System.Windows.Forms.Button();
             this.scannerBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.attendanceDataGrid = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.scannerBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.attendanceDataGrid)).BeginInit();
             this.SuspendLayout();
@@ -45,7 +44,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.button1.Location = new System.Drawing.Point(191, 310);
+            this.button1.Location = new System.Drawing.Point(566, 294);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(139, 74);
             this.button1.TabIndex = 0;
@@ -81,17 +80,6 @@
             this.btnStart.UseVisualStyleBackColor = false;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // btnDecode
-            // 
-            this.btnDecode.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.btnDecode.Location = new System.Drawing.Point(561, 294);
-            this.btnDecode.Name = "btnDecode";
-            this.btnDecode.Size = new System.Drawing.Size(103, 51);
-            this.btnDecode.TabIndex = 5;
-            this.btnDecode.Text = "Decode";
-            this.btnDecode.UseVisualStyleBackColor = false;
-            this.btnDecode.Click += new System.EventHandler(this.btnDecode_Click);
-            // 
             // scannerBox
             // 
             this.scannerBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -114,13 +102,15 @@
             this.attendanceDataGrid.Size = new System.Drawing.Size(345, 223);
             this.attendanceDataGrid.TabIndex = 7;
             // 
-            // textBox1
+            // label2
             // 
-            this.textBox1.Location = new System.Drawing.Point(710, 294);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(78, 35);
-            this.textBox1.TabIndex = 8;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(132, 325);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "label2";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // Attendance2
             // 
@@ -128,10 +118,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.attendanceDataGrid);
             this.Controls.Add(this.scannerBox);
-            this.Controls.Add(this.btnDecode);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.comboCam);
             this.Controls.Add(this.label1);
@@ -153,10 +142,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboCam;
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button btnDecode;
         private System.Windows.Forms.PictureBox scannerBox;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.DataGridView attendanceDataGrid;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label2;
     }
 }
